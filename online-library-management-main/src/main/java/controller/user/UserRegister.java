@@ -1,9 +1,8 @@
 package controller.user;
 
 import entity.User;
-import entity.enums.Roles;
 import model.ResponseDto;
-import repository.UserRepository;
+import static helper.DoubleHelper.*;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -28,9 +27,12 @@ public class UserRegister extends HttpServlet {
             String username = req.getParameter("username");
             String phoneNumber = req.getParameter("phoneNumber");
             String password = req.getParameter("password");
-            Double account = Double.valueOf(req.getParameter("account"));
+            String account = req.getParameter("account");
+
 //          if user registers it will be automatically registered with USER role
-            User user = new User(firstname, lastName, username, phoneNumber, password, account, USER.name());
+            if(checkDouble(account))
+                resp.getWriter().write("Please enter right account");
+            User user = new User(firstname, lastName, username, phoneNumber, password, Double.parseDouble(account), USER.name());
             ResponseDto responseDto = userService.registerUser(user);
             if (responseDto.isSuccess()) {
                 resp.sendRedirect("/user/login");

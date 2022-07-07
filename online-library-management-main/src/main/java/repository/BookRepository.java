@@ -2,6 +2,7 @@ package repository;
 
 import entity.Book;
 import helper.DBConnection;
+import model.BookDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class BookRepository {
 
 
     //    CREATE
-    public Book addBook(Book book) {
+    public BookDto addBook(BookDto book) {
         String INSERT_BOOK = "insert into book(name, cost, genre, page_count, total_number_of_books, left_number_of_books, author_id)" +
                 " VALUES\n" +
                 "    (?, ?, ?, ?, ?, ?, ?) ";
